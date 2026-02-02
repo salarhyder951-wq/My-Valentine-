@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 💖</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff4e8a, #ff85c1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+}
+
+.card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.yes {
+  background: white;
+  color: #ff4e8a;
+}
+
+.no {
+  background: #ff2e6c;
+  color: white;
+}
+
+.emoji {
+  position: absolute;
+  font-size: 2rem;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(-10vh); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <h1 id="question">Will you be my Valentine? 💖</h1>
+  <button class="yes" onclick="yesClick()">Yes 😍</button>
+  <button class="no" onclick="noClick()">No 🙄</button>
+</div>
+
+<script>
+let noCount = 0;
+let stage = 0;
+
+const noTexts = [
+  "Are uhh sure? 🤨",
+  "Soch lo phrse 😏",
+  "Haha nice try 😌",
+  "Now uhh are checking my patience 😤",
+  "Na kro na ab 😭"
+];
+
+const days = [
+  "Day 1 💖 – Smiles & Blushes 😊",
+  "Day 2 💌 – Sweet Talks",
+  "Day 3 🌹 – Cute Moments",
+  "Day 4 😍 – Missing You",
+  "Day 5 💞 – Deep Feelings",
+  "Day 6 🥰 – Forever Vibes",
+  "Day 7 ❤️ – You Are Mine"
+];
+
+function noClick() {
+  if (noCount < noTexts.length) {
+    document.getElementById("question").innerText = noTexts[noCount];
+    noCount++;
+  } else {
+    document.getElementById("question").innerText =
+      "Bas ab YES hi option bacha hai 😌❤️";
+  }
+}
+
+function yesClick() {
+  if (stage === 0) {
+    document.getElementById("question").innerText =
+      "Yeahhh! I knew it 😍💖";
+    stage++;
+  } else if (stage === 1) {
+    document.getElementById("question").innerText =
+      "Are uhh ready for 7 days of love? 💕";
+    stage++;
+  } else if (stage - 2 < days.length) {
+    document.getElementById("question").innerText =
+      days[stage - 2];
+    createEmojis();
+    stage++;
+  } else {
+    document.getElementById("question").innerText =
+      "Happy Valentine 💘 Forever & Always 💍";
+    createEmojis();
+  }
+}
+
+function createEmojis() {
+  const emojis = ["❤️","💖","💘","😍","🌹","🥰"];
+  for (let i = 0; i < 12; i++) {
+    let e = document.createElement("div");
+    e.className = "emoji";
+    e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random()*100 + "vw";
+    e.style.animationDuration = (Math.random()*3 + 3) + "s";
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 6000);
+  }
+}
+</script>
+
+</body>
+</html>
